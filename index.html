@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคิดเลขพื้นฐาน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            background-color: #e0e0e0;
+            text-align: right;
+            padding: 10px;
+            font-size: 24px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #d0d0d0;
+        }
+        .button-row {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>เครื่องคิดเลขพื้นฐาน</h1>
+    <div class="display" id="display">0</div>
+    <div class="button-row">
+        <button onclick="clearDisplay()">CE</button>
+        <button onclick="deleteDigit()">←</button>
+        <button onclick="input('%')">%</button>
+        <button onclick="input('+')">+</button>
+    </div>
+    <div class="button-row">
+        <button onclick="input('7')">7</button>
+        <button onclick="input('8')">8</button>
+        <button onclick="input('9')">9</button>
+        <button onclick="input('-')">-</button>
+    </div>
+    <div class="button-row">
+        <button onclick="input('4')">4</button>
+        <button onclick="input('5')">5</button>
+        <button onclick="input('6')">6</button>
+        <button onclick="input('*')">x</button>
+    </div>
+    <div class="button-row">
+        <button onclick="input('1')">1</button>
+        <button onclick="input('2')">2</button>
+        <button onclick="input('3')">3</button>
+        <button onclick="input('/')">÷</button>
+    </div>
+    <div class="button-row">
+        <button onclick="input('0')">0</button>
+        <button onclick="input('±')">±</button>
+        <button onclick="input('.')">.</button>
+        <button onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    let displayValue = '0';
+
+    function updateDisplay() {
+        document.getElementById('display').textContent = displayValue;
+    }
+
+    function clearDisplay() {
+        displayValue = '0';
+        updateDisplay();
+    }
+
+    function deleteDigit() {
+        if (displayValue.length > 1) {
+            displayValue = displayValue.slice(0, -1);
+        } else {
+            displayValue = '0';
+        }
+        updateDisplay();
+    }
+
+    function input(value) {
+        if (displayValue === '0') {
+            displayValue = value;
+        } else {
+            displayValue += value;
+        }
+        updateDisplay();
+    }
+
+    function calculate() {
+        try {
+            displayValue = eval(displayValue.replace(/x/g, '*').replace(/÷/g, '/')).toString();
+        } catch {
+            displayValue = 'Error';
+        }
+        updateDisplay();
+    }
+</script>
+
+</body>
+</html>
